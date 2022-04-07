@@ -1,0 +1,82 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.sigpwned</groupId>
+    <artifactId>openapi-generator-maven-plugin-template-customization-example</artifactId>
+    <version>0.0.0-SNAPSHOT</version>
+    <name>openapi-generator-maven-plugin-template-customization-example</name>
+    <inceptionYear>2022</inceptionYear>
+    <description>An example Maven project that uses the OpenAPI Generator Maven plugin with template customization to generate an API model and server.</description>
+    <url>https://github.com/sigpwned/openapi-generator-maven-plugin-template-customization-example</url>
+    <packaging>pom</packaging>
+
+    <scm>
+        <connection>scm:git:ssh://git@github.com/sigpwned/openapi-generator-maven-plugin-template-customization-example.git</connection>
+        <developerConnection>scm:git:ssh://git@github.com/sigpwned/openapi-generator-maven-plugin-template-customization-example.git</developerConnection>
+        <url>https://github.com/sigpwned/openapi-generator-maven-plugin-template-customization-example/tree/main</url>
+        <tag>HEAD</tag>
+    </scm>
+
+    <developers>
+        <developer>
+            <name>Andy Boothe</name>
+            <email>andy.boothe@gmail.com</email>
+        </developer>
+    </developers>
+
+    <issueManagement>
+        <system>GitHub</system>
+        <url>https://github.com/sigpwned/openapi-generator-maven-plugin-template-customization-example</url>
+    </issueManagement>
+
+    <properties>
+        <java.version>11</java.version>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.10.1</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <release>${java.version}</release>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.openapitools</groupId>
+                <artifactId>openapi-generator-maven-plugin</artifactId>
+                <version>5.4.0</version>
+                <executions>
+                    <execution>
+                        <id>generate</id>
+                        <goals>
+                            <goal>generate</goal>
+                        </goals>
+                        <configuration>
+                            <inputSpec>openapi.yml</inputSpec>
+                            <generatorName>jaxrs-spec</generatorName>
+                            <generateApis>true</generateApis>
+                            <generateModels>true</generateModels>
+                            <generateSupportingFiles>false</generateSupportingFiles>
+                            <templateDirectory>openapi/templates</templateDirectory>
+                            <configOptions>
+                                <apiPackage>com.sigpwned.greeting.spi.service</apiPackage>
+                                <modelPackage>com.sigpwned.greeting.spi.model</modelPackage>
+                                <dateLibrary>java8</dateLibrary>
+                                <useSwaggerAnnotations>false</useSwaggerAnnotations>
+
+                                <returnResponse>false</returnResponse>
+                                <interfaceOnly>true</interfaceOnly>
+                                <supportAsync>true</supportAsync>
+                            </configOptions>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+</project>

@@ -1,0 +1,23 @@
+    @{{httpMethod}}{{#subresourceOperation}}
+    @Path("{{{path}}}"){{/subresourceOperation}}{{#hasConsumes}}
+    @Consumes({ {{#consumes}}"{{{mediaType}}}"{{^-last}}, {{/-last}}{{/consumes}} }){{/hasConsumes}}{{#hasProduces}}
+    @Produces({ {{#produces}}"{{{mediaType}}}"{{^-last}}, {{/-last}}{{/produces}} }){{/hasProduces}}{{#useSwaggerAnnotations}}
+    @ApiOperation(value = "{{{summary}}}", notes = "{{{notes}}}", response = {{{returnBaseType}}}.class{{#returnContainer}}, responseContainer = "{{{.}}}"{{/returnContainer}}{{#hasAuthMethods}}, authorizations = {
+        {{#authMethods}}{{#isOAuth}}@Authorization(value = "{{name}}", scopes = {
+            {{#scopes}}@AuthorizationScope(scope = "{{scope}}", description = "{{description}}"){{^-last}},
+            {{/-last}}{{/scopes}} }){{^-last}},{{/-last}}{{/isOAuth}}
+        {{^isOAuth}}@Authorization(value = "{{name}}"){{^-last}},{{/-last}}
+        {{/isOAuth}}{{/authMethods}} }{{/hasAuthMethods}}, tags={ {{#vendorExtensions.x-tags}}"{{tag}}"{{^-last}}, {{/-last}}{{/vendorExtensions.x-tags}} })
+    {{#implicitHeadersParams.0}}
+    @io.swagger.annotations.ApiImplicitParams({
+        {{#implicitHeadersParams}}
+        @io.swagger.annotations.ApiImplicitParam(name = "{{{baseName}}}", value = "{{{description}}}", {{#required}}required = true,{{/required}} dataType = "{{{dataType}}}", paramType = "header"){{^-last}},{{/-last}}
+        {{/implicitHeadersParams}}
+    })
+    {{/implicitHeadersParams.0}}
+    @ApiResponses(value = { {{#responses}}
+        @ApiResponse(code = {{{code}}}, message = "{{{message}}}", response = {{{baseType}}}.class{{#containerType}}, responseContainer = "{{{.}}}"{{/containerType}}){{^-last}},{{/-last}}{{/responses}}
+    }){{/useSwaggerAnnotations}}
+    public {{#vendorExtensions.x-async-enabled}}void{{/vendorExtensions.x-async-enabled}}{{^vendorExtensions.x-async-enabled}}{{#supportAsync}}CompletionStage<{{/supportAsync}}Response{{#supportAsync}}>{{/supportAsync}}{{/vendorExtensions.x-async-enabled}} {{nickname}}({{#allParams}}{{>queryParams}}{{>pathParams}}{{>cookieParams}}{{>headerParams}}{{>bodyParams}}{{>formParams}}{{^-last}},{{/-last}}{{/allParams}}{{#vendorExtensions.x-async-enabled}}{{#allParams.0}},{{/allParams.0}}{{>asyncParams}}{{/vendorExtensions.x-async-enabled}}) {
+        return {{#vendorExtensions.x-async-enabled}}asyncResponse.complete({{/vendorExtensions.x-async-enabled}}{{^vendorExtensions.x-async-enabled}}{{#supportAsync}}CompletableFuture.supplyAsync(() -> {{/supportAsync}}{{/vendorExtensions.x-async-enabled}}Response.ok().entity("magic!").build(){{#vendorExtensions.x-async-enabled}}){{/vendorExtensions.x-async-enabled}}{{^vendorExtensions.x-async-enabled}}{{#supportAsync}}){{/supportAsync}}{{/vendorExtensions.x-async-enabled}};
+    }

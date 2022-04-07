@@ -1,1 +1,9 @@
+# Eclipse junk
+.project
+.settings/
+
+# Emacs junk
 *~
+
+# Don't checkin generated code
+target/

@@ -1,0 +1,47 @@
+openapi: 3.0.2
+info:
+  title: OpenAPI Generator Maven Plugin Template Customization Example
+  description: An example Maven project that uses the OpenAPI Generator Maven plugin with template customization to generate an API model and server.
+  contact:
+    email: andy.boothe@gmail.com
+  version: 0.0.0
+servers:
+  - url: http://localhost:8080/v1
+tags:
+  - name: example
+    description: Example endpoint
+paths:
+  /greet:
+    post:
+      tags:
+        - example
+      summary: Greet the user
+      description: Generate a greeting for the given name
+      operationId: greet
+      x-async-enabled: true
+      requestBody:
+        description: The name to greet
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Name'
+      responses:
+        200:
+          description: The greeting was generated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Greeting'
+components:
+  schemas:
+    Name:
+      type: object
+      properties:
+        name:
+          type: string
+
+    Greeting:
+      type: object
+      properties:
+        greeting:
+          type: string
