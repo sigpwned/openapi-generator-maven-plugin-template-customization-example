@@ -481,7 +481,7 @@ We want to be able to generate method definitions like this:
     @Produces({ "application/json" })
     void greet(@Valid Name name, @Suspended AsyncResponse response);
 
-### Extensions
+### OpenAPI Spec Extensions
 
 The [OpenAPI Spec](https://swagger.io/specification/) explicitly
 provides the
