@@ -522,6 +522,7 @@ In our POM, we told the generator we were going to BYOT:
 Here are the templates we brought:
 
     $ ls openapi/templates
+    api.mustache
     apiInterface.mustache
     apiMethod.mustache
     asyncParams.mustache
