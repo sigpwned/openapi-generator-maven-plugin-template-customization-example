@@ -18,7 +18,10 @@ paths:
       summary: Greet the user
       description: Generate a greeting for the given name
       operationId: greet
-      x-async-enabled: true
+      # We can set determine whether each method is synchronous or asynchronous using this flag.
+      # This particular option is an extension, so you won't find documentation for it anywhere.
+      # Implementing it is the point of this exercise.
+      x-async-enabled: false
       requestBody:
         description: The name to greet
         content:

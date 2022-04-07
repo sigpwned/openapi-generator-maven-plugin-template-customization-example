@@ -57,21 +57,58 @@
                             <goal>generate</goal>
                         </goals>
                         <configuration>
+                            <!-- This section includes the "global" configuration options, so called because they apply to all generators. Users generally don't need to care about this detail, except to make sure their configuration information lands in the correct place - <configuration> vs <configOptions>. -->
+                            <!-- https://github.com/OpenAPITools/openapi-generator/tree/master/modules/openapi-generator-maven-plugin -->
+
+                            <!-- The OpenAPI spec is in a file in this repository called "openapi.yml". It can also be a hyperlink. -->
                             <inputSpec>openapi.yml</inputSpec>
+
+                            <!-- There are many generators available. We are using jaxrs-spec. -->
                             <generatorName>jaxrs-spec</generatorName>
+
+                            <!-- APIs are service interfaces or implementations. -->
                             <generateApis>true</generateApis>
+
+                            <!-- Models are DTOs, generally from the schemas portion of the spec. -->
                             <generateModels>true</generateModels>
+
+                            <!-- In this example, we're not generating the POM, README, etc. Just the code, ma'am. -->
                             <generateSupportingFiles>false</generateSupportingFiles>
-                            <templateDirectory>openapi/templates</templateDirectory>
+
+                            <!-- We are showing off template customization today. The custom templates are stored here. -->
+                            <templateDirectory>${project.basedir}/openapi/templates</templateDirectory>
+                            
+                            <!-- This is the director where generated code will be stored. The plugin automatically adds this directory to your build. This is the default value. You generally don't need to change this, but it's worth calling out in this example so users know where to look for generated code. -->
+                            <output>${project.build.directory}/generated-sources/openapi</output>
+
                             <configOptions>
+                                <!-- These are the "local" configuration options that apply only to this generator. -->
+                                <!-- https://openapi-generator.tech/docs/generators/jaxrs-spec -->
+
+                                <!-- These are the packages we want our APIs and Models generated in, respectively. -->
                                 <apiPackage>com.sigpwned.greeting.spi.service</apiPackage>
                                 <modelPackage>com.sigpwned.greeting.spi.model</modelPackage>
+
+                                <!-- I personally consider these to be best practices. However, they are up to you! -->
                                 <dateLibrary>java8</dateLibrary>
                                 <useSwaggerAnnotations>false</useSwaggerAnnotations>
 
+                                <!-- These values are largely up to you, and depend on your goals and philosophy. This SSCCE should support all permutations of the below. -->
+
+                                <!-- I prefer to have interface methods return model objects, not JAX-RS Response objects. I can still generate any response I want by throwing WebApplicationException classes. -->
+                                <!-- If this is set to true, then all generated service methods will return javax.ws.rs.core.Response objects. -->
+                                <!-- If this is set to false, then all generated service methods will return their respective model objects. -->
                                 <returnResponse>false</returnResponse>
+
+                                <!-- I prefer to generate interfaces, not implementation. This allows me to make sure that my client and server implementations are in sync. -->
+                                <!-- If this is set to true, then service interfaces will be generated. -->
+                                <!-- If this is set to false, then service implementations will be generated. -->
                                 <interfaceOnly>true</interfaceOnly>
-                                <supportAsync>true</supportAsync>
+
+                                <!-- This is a useful feature for web frameworks that support the JAX-RS 2.1 feature of implementing asynchronous processing by returning CompletionStage instances. In all cases, generated service methods return either Response or a model object, depending on the above configuration. This configuration option affects all methods. Users cannot choose to make individual methods synchronous versus asynchronous. -->
+                                <!-- If this is set to true, then all generated service method return types will be changed from T to CompletionStage<T>. -->
+                                <!-- If this is set to false, then all generate service method return types will be unchanged. -->
+                                <supportAsync>false</supportAsync>
                             </configOptions>
                         </configuration>
                     </execution>
