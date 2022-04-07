@@ -1,4 +1,4 @@
-# openapi-generator-maven-plugin-template-customization-example
+# openapi-generator-maven-plugin-template-customization-example [![codegen](https://github.com/sigpwned/openapi-generator-maven-plugin-template-customization-example/actions/workflows/codegen.yml/badge.svg)](https://github.com/sigpwned/openapi-generator-maven-plugin-template-customization-example/actions/workflows/codegen.yml)
 
 ## Motivation
 
