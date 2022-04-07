@@ -17,13 +17,17 @@ customization. Unfortunately, those customization features can be
 difficult to set up and use in practice.
 
 This project is a [SSCCE](http://sscce.org/) for performing template
-customization using the OpenAPI Generator Maven Plugin. This
+customization using the OpenAPI Generator Maven Plugin. The chosen
 customization uses
 [extensions](https://openapi-generator.tech/docs/templating/#extensions)
-to add support for JAX-RS 2.0 `@Suspended AsyncResponse` features to
-the
+to add per-method support for JAX-RS 2.0 `@Suspended AsyncResponse`
+features to the
 [`jaxrs-spec`](https://openapi-generator.tech/docs/generators/jaxrs-spec)
 generator.
+
+This project is also a fine starting point for a Reasonable Default of
+using the OpenAPI Generator Maven Plugin, for anyone looking for an
+example to start from.
 
 ## Introduction
 
