@@ -510,7 +510,7 @@ templates](https://en.wikipedia.org/wiki/Mustache_%28template_system%29),
 specifically
 [jmustache](https://github.com/samskivert/jmustache). Typically,
 generators implement multiple templates that call each other. The
-generator allows users to override
+generator allows users to
 [BYOT](https://openapi-generator.tech/docs/templating/) ("bring your
 own templates") to override default templates.
 
