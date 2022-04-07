@@ -23,7 +23,9 @@ customization uses
 to add per-method support for JAX-RS 2.0 `@Suspended AsyncResponse`
 features to the
 [`jaxrs-spec`](https://openapi-generator.tech/docs/generators/jaxrs-spec)
-generator.
+generator. If anyone happens to need `AsyncResponse` code generation
+for the OpenAPI Generator Maven Plugin, this should work out of the
+box.
 
 This project is also a fine starting point for a Reasonable Default of
 using the OpenAPI Generator Maven Plugin, for anyone looking for an
