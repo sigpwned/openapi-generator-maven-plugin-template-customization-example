@@ -453,8 +453,8 @@ Because of the configuration values we chose in our POM file:
 ## Template Customization
 
 Now that we understand the generator's default behavior, let's make
-some customizations. For the purposes of this example, I have chosen
-adding JAX-RS `AsyncResponse` code generation to the generator.
+some customizations. For the purposes of this example, we will add
+JAX-RS `AsyncResponse` code generation to the generator.
 
 ### The Customization Requirements
 
