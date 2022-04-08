@@ -1,5 +1,6 @@
 # Eclipse junk
 .project
+.classpath
 .settings/
 
 # Emacs junk

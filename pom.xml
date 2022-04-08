@@ -8,7 +8,7 @@
     <inceptionYear>2022</inceptionYear>
     <description>An example Maven project that uses the OpenAPI Generator Maven plugin with template customization to generate an API model and server.</description>
     <url>https://github.com/sigpwned/openapi-generator-maven-plugin-template-customization-example</url>
-    <packaging>pom</packaging>
+    <packaging>jar</packaging>
 
     <scm>
         <connection>scm:git:ssh://git@github.com/sigpwned/openapi-generator-maven-plugin-template-customization-example.git</connection>
@@ -32,6 +32,7 @@
     <properties>
         <java.version>11</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <openapi.source.directory>${project.build.directory}/generated-sources/openapi</openapi.source.directory>
     </properties>
 
     <build>
@@ -61,7 +62,7 @@
                             <!-- https://github.com/OpenAPITools/openapi-generator/tree/master/modules/openapi-generator-maven-plugin -->
 
                             <!-- The OpenAPI spec is in a file in this repository called "openapi.yml". It can also be a hyperlink. -->
-                            <inputSpec>openapi.yml</inputSpec>
+                            <inputSpec>${project.basedir}/openapi.yml</inputSpec>
 
                             <!-- There are many generators available. We are using jaxrs-spec. -->
                             <generatorName>jaxrs-spec</generatorName>
@@ -75,11 +76,11 @@
                             <!-- In this example, we're not generating the POM, README, etc. Just the code, ma'am. -->
                             <generateSupportingFiles>false</generateSupportingFiles>
 
+                            <!-- This is the default value, but be explicit so it's clear when we refer to the value elsewhere. -->
+                            <output>${openapi.source.directory}</output>
+
                             <!-- We are showing off template customization today. The custom templates are stored here. -->
                             <templateDirectory>${project.basedir}/openapi/templates</templateDirectory>
-                            
-                            <!-- This is the director where generated code will be stored. The plugin automatically adds this directory to your build. This is the default value. You generally don't need to change this, but it's worth calling out in this example so users know where to look for generated code. -->
-                            <output>${project.build.directory}/generated-sources/openapi</output>
 
                             <configOptions>
                                 <!-- These are the "local" configuration options that apply only to this generator. -->
@@ -114,6 +115,57 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>3.3.0</version>
+                <executions>
+                    <execution>
+                        <id>add-source</id>
+                        <goals>
+                            <goal>add-source</goal>
+                        </goals>
+                        <configuration>
+                            <sources>
+                                <!-- Add the generated source to the project so it gets compiled -->
+                                <source>${openapi.source.directory}/src/gen/java</source>
+                            </sources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
+    
+    <dependencies>
+        <!-- A convenient way to co-manage these dependency versions is to use a BOM, e.g. the dropwizard-dependencies BOM. -->
+    
+        <!-- This provides the model JSON serialization annotations, e.g. @JsonProperty -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.10.5.1</version>
+        </dependency>
+        
+        <!-- This provides the model @Generated annotation -->
+        <dependency>
+            <groupId>jakarta.annotation</groupId>
+            <artifactId>jakarta.annotation-api</artifactId>
+            <version>1.3.5</version>
+        </dependency>
+        
+        <!-- This provides the model bean validation annotations, e.g. @Valid -->
+        <dependency>
+            <groupId>jakarta.validation</groupId>
+            <artifactId>jakarta.validation-api</artifactId>
+            <version>2.0.2</version>
+        </dependency>
+        
+        <!-- This provides the service REST annotations, e.g. @POST -->
+        <dependency>
+            <groupId>jakarta.ws.rs</groupId>
+            <artifactId>jakarta.ws.rs-api</artifactId>
+            <version>2.1.6</version>
+        </dependency>
+    </dependencies>
 </project>
